@@ -1,5 +1,7 @@
 package com.theironyard.entities;
 
+import org.springframework.data.repository.CrudRepository;
+
 import javax.persistence.*;
 
 /**
