@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  * Created by michaeldelli-gatti on 6/30/16.
  */
 public interface ReviewRepository extends CrudRepository<Review, Integer> {
-    Iterable<Review> findByLecturer(Lecturer lecturer);
+    Iterable<Review> findByLecturerId(int lecturerId);
 }

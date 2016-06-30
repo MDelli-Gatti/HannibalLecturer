@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by michaeldelli-gatti on 6/30/16.
  */
-@Controller
+@RestController
 public class HannibalLecturerController {
     @Autowired
     ReviewRepository reviews;
@@ -26,19 +27,22 @@ public class HannibalLecturerController {
     }
 
     @RequestMapping(path = "/lecturers", method = RequestMethod.POST)
-    public void postLecturer(String name, String topic, String image){
+    public String postLecturer(String name, String topic, String image){
         Lecturer l = new Lecturer(name, topic, image);
         lecturers.save(l);
+        return "redirect:/";
     }
 
     @RequestMapping(path = "/reviews", method = RequestMethod.GET)
-    public Iterable<Review> getReviews(){
-        return reviews.findAll();
+    public Iterable<Review> getReviews(int lecturerId){
+        return reviews.findByLecturerId(lecturerId);
     }
 
     @RequestMapping(path = "/reviews", method = RequestMethod.POST)
-    public void postReviews(String author, String text, boolean isGood, Lecturer lecturer){
-        Review r = new Review(author, text, isGood, lecturer);
+    public String postReviews(String author, String text, int lecturerId, boolean isGood){
+        Lecturer l = lecturers.findOne(lecturerId);
+        Review r = new Review(author, text, isGood, l);
         reviews.save(r);
+        return "redirect:/";
     }
 }

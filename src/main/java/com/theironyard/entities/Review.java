@@ -73,4 +73,5 @@ public class Review {
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
     }
+
 }
